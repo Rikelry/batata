@@ -87,6 +87,39 @@ Receitas
 
 Códigos de erro: as validações retornam `400` com `{ error: "mensagem" }` (middleware em `src/presentation/http/middlewares/errorHandler.ts`).
 
+## Clientes HTTP (Insomnia/Postman)
+- Base URL: `http://localhost:3000` (ajuste `PORT` se necessário).
+- Headers: `Content-Type: application/json` para requisições com corpo.
+- Fluxo sugerido:
+  - Criar Categoria
+    - Método: `POST`
+    - URL: `/categories`
+    - Body (raw JSON): `{ "name": "Sobremesa" }`
+  - Criar Ingrediente
+    - Método: `POST`
+    - URL: `/ingredients`
+    - Body: `{ "name": "Leite" }`
+  - Criar Receita
+    - Método: `POST`
+    - URL: `/recipes`
+    - Body:
+      ```json
+      {
+        "title": "Pavê de chocolate",
+        "description": "Camadas de biscoito e creme",
+        "ingredients": ["biscoito", "creme", "chocolate"],
+        "steps": ["misturar", "montar", "gelar"],
+        "categoryId": "<ID_DA_CATEGORIA>"
+      }
+      ```
+- Listagens e filtros:
+  - `GET /categories`, `GET /ingredients`, `GET /recipes`
+  - `GET /recipes?categoryId=<ID>` para filtrar por categoria
+  - `GET /recipes?search=<texto>` para buscar por título/descrição/ingredientes
+- Dicas de uso:
+  - Crie um ambiente com variável `base_url` e use `{{ base_url }}` nas requisições.
+  - Salve exemplos de corpo usando os arquivos em `requests/`.
+
 ## Exemplos rápidos (Windows PowerShell)
 - Criar categoria usando arquivo:
   ```powershell
