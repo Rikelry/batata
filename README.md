@@ -39,6 +39,7 @@ O projeto aplica o princípio da **Inversão de Dependência (DIP)**:
 Diagramas UML estão disponíveis na pasta `docs/diagrams`:
 - `package-diagram.puml`: Visão geral das camadas e componentes.
 - `class-diagram.puml`: Detalhes das classes, interfaces e relacionamentos.
+- `use-case-diagram.puml`: Casos de uso e interações do usuário.
 
 ### Fluxo de Dados
 1. Requisição HTTP chega na `presentation`.

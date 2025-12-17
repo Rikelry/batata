@@ -1,0 +1,58 @@
+@startuml
+left to right direction
+actor "Usuário" as User
+
+package "Sistema de Receitas" {
+    package "Gerenciar Categorias" {
+        usecase "Criar Categoria" as UC1
+        usecase "Listar Categorias" as UC2
+        usecase "Atualizar Categoria" as UC3
+        usecase "Excluir Categoria" as UC4
+    }
+
+    package "Gerenciar Ingredientes" {
+        usecase "Criar Ingrediente" as UC5
+        usecase "Listar Ingredientes" as UC6
+        usecase "Atualizar Ingrediente" as UC7
+        usecase "Excluir Ingrediente" as UC8
+    }
+
+    package "Gerenciar Receitas" {
+        usecase "Criar Receita" as UC9
+        usecase "Listar Receitas" as UC10
+        usecase "Visualizar Detalhes da Receita" as UC11
+        usecase "Atualizar Receita" as UC12
+        usecase "Excluir Receita" as UC13
+        usecase "Buscar Receitas" as UC14
+    }
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+
+note right of UC9
+  Inclui validação de categoria
+  e criação automática de ingredientes
+  se não existirem
+end note
+
+note right of UC14
+  Busca por texto (título/descrição)
+  ou filtro por Categoria
+end note
+
+@enduml
