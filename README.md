@@ -186,7 +186,9 @@ receitas/
 │  ├─ category.json
 │  ├─ ingredient.json
 │  ├─ ingredient-update.json
-│  └─ recipe.json
+│  ├─ recipe.json
+│  ├─ Insomnia_recipes_requests.yaml
+│  └─ recipes_requests.yaml
 ├─ package.json
 ├─ tsconfig.json
 └─ README.md

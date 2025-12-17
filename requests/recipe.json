@@ -1,0 +1,12 @@
+{
+  "title": "Pavê de chocolate",
+  "description": "Camadas de biscoito e creme",
+  "ingredients": [
+    { "name": "biscoito", "quantity": 200, "unit": "g" },
+    { "name": "creme", "quantity": 300, "unit": "ml" },
+    { "name": "chocolate", "quantity": 100, "unit": "g" }
+  ],
+  "steps": ["misturar", "montar", "gelar"],
+  "servings": 8,
+  "categoryId": "ID_DA_CATEGORIA_AQUI"
+}
