@@ -5,6 +5,7 @@ export type CreateRecipeDTO = {
   description?: string
   ingredients: { ingredientId: string; quantity: number; unit: string }[]
   steps: string[]
+  servings: number
   categoryId: string
 }
 

@@ -27,6 +27,7 @@ export class RecipeMemoryRepository implements IRecipeRepository {
       description: data.description,
       ingredients: [...data.ingredients],
       steps: [...data.steps],
+      servings: data.servings,
       categoryId: data.categoryId,
       createdAt: new Date(),
     }

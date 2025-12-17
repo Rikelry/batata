@@ -113,6 +113,7 @@ Códigos de erro: as validações retornam `400` com `{ error: "mensagem" }` (mi
           { "name": "chocolate", "quantity": 100, "unit": "g" }
         ],
         "steps": ["misturar", "montar", "gelar"],
+        "servings": 8,
         "categoryId": "<ID_DA_CATEGORIA>"
       }
       ```

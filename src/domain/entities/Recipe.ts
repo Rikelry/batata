@@ -4,6 +4,7 @@ export type Recipe = {
   description?: string
   ingredients: { ingredientId: string; quantity: number; unit: string }[]
   steps: string[]
+  servings: number
   categoryId: string
   createdAt: Date
 }

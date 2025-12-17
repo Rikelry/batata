@@ -2,13 +2,13 @@ import { IRecipeRepository } from "../../domain/repositories/IRecipeRepository.j
 import { ICategoryRepository } from "../../domain/repositories/ICategoryRepository.js"
 import { IIngredientRepository } from "../../domain/repositories/IIngredientRepository.js"
 import { Recipe } from "../../domain/entities/Recipe.js"
- 
 
 type CreateRecipeInput = {
   title: string
   description?: string
   ingredients: { name: string; quantity: number; unit: string }[]
   steps: string[]
+  servings: number
   categoryId: string
 }
 
@@ -47,11 +47,16 @@ export class RecipeService {
     const steps = Array.isArray(input.steps)
       ? input.steps.map((s) => String(s))
       : []
+    
+    const servings = Number(input.servings)
+    if (!(servings > 0)) throw new Error("Servings must be greater than 0")
+
     return this.recipes.create({
       title,
       description: input.description,
       ingredients: resolved,
       steps,
+      servings,
       categoryId: input.categoryId,
     })
   }
@@ -113,6 +118,11 @@ export class RecipeService {
     }
     if (data.steps !== undefined) {
       repoData.steps = Array.isArray(data.steps) ? [...data.steps] : []
+    }
+    if (data.servings !== undefined) {
+      const servings = Number(data.servings)
+      if (!(servings > 0)) throw new Error("Servings must be greater than 0")
+      repoData.servings = servings
     }
     if (data.categoryId !== undefined) {
       repoData.categoryId = data.categoryId
