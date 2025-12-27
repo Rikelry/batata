@@ -73,6 +73,60 @@ export function recipesRoutes(service: IRecipeService) {
     }
   })
 
+  /**
+   * CÓDIGO NOVO
+   * Endpoint para escalonamento de porções
+   * Não persiste dados, apenas retorna cálculo proporcional
+   */
+  router.post("/:id/scale", async (req, res, next) => {
+    try {
+      const servings = Number(req.body.servings)
+      const recipe = await service.scaleRecipe(req.params.id, servings)
+      res.json(recipe)
+    } catch (error) {
+      next(error)
+    }
+  })
+
+  /**
+   * CÓDIGO NOVO
+   * Endpoint para geração de lista de compras consolidada
+   */
+  router.post("/shopping-list", async (req, res, next) => {
+    try {
+      const recipeIds = req.body.recipeIds
+      const result = await service.generateShoppingList(recipeIds)
+      res.json(result)
+    } catch (error) {
+      next(error)
+    }
+  })
+
+  /**
+   * CÓDIGO NOVO
+   * Endpoint para publicar receita (draft → published)
+   */
+  router.post("/:id/publish", async (req, res, next) => {
+    try {
+      const recipe = await service.publish(req.params.id)
+      res.json(recipe)
+    } catch (error) {
+      next(error)
+    }
+  })
+
+  /**
+   * CÓDIGO NOVO
+   * Endpoint para arquivar receita (published → archived)
+   */
+  router.post("/:id/archive", async (req, res, next) => {
+    try {
+      const recipe = await service.archive(req.params.id)
+      res.json(recipe)
+    } catch (error) {
+      next(error)
+    }
+  })
+
   return router
 }
-
