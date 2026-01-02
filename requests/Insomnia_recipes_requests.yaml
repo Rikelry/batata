@@ -43,7 +43,7 @@ collection:
     method: POST
     body:
       mimeType: application/json
-      text: '{ "name": "DIGITE_AQUI_O_NOME_DA_CATEGORIA]_NOVA" }'
+      text: '{ "name": "DIGITE_AQUI_O_NOME_DA_CATEGORIA_NOVA" }'
     headers:
       - name: Content-Type
         value: application/json
