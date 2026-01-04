@@ -317,3 +317,83 @@ Gera uma lista única de ingredientes combinando múltiplas receitas, somando qu
 - Um array consolidado é retornado.
 - Não há persistência de dados.
 - Nenhuma receita original é modificada.
+
+## Estados da Receita (Workflow)
+
+Controla o ciclo de vida das receitas, garantindo regras claras para criação, edição, publicação e arquivamento.
+
+### Regras que foram implementadas
+- Receitas começam sempre como draft.
+- Apenas receitas published aparecem nas listagens públicas.
+- Receitas draft podem ser editadas e excluídas.
+- Receitas published não podem ser excluídas (somente arquivadas).
+- Receitas archived não podem ser editadas.
+- Receitas archived não podem ser acessadas (tratadas como inexistentes).
+- As validações são aplicadas no serviço, garantindo consistência e mensagens de erro claras.
+
+### Transições de Estado
+- draft → published
+- published → archived
+
+### Endpoints
+
+#### Publicar receita
+POST /recipes/:id/publish
+
+- Status final:
+```json
+{
+  "status": "published"
+}
+```
+
+### Arquivar receita
+POST /recipes/:id/archive
+
+- Status final:
+```json
+{
+  "status": "archived"
+}
+```
+
+### Métodos do Serviço
+
+#### Publicar receita
+```ts
+publish(id: string): Promise<Recipe>
+```
+- Permite publicação apenas se a receita estiver em draft.
+
+#### Arquivar receita
+```ts
+archive(id: string): Promise<Recipe>
+```
+- Permite arquivamento apenas se a receita estiver em published.
+
+### Exemplos de Comportamento
+
+#### Tentativa de editar receita arquivada
+```txt
+Erro: "Recipe is archived and cannot be edited"
+```
+
+#### Tentativa de excluir receita publicada
+```txt
+Erro: "Only draft recipes can be deleted"
+```
+
+#### Tentativa de acessar receita arquivada
+```txt
+Erro: "Recipe not found"
+```
+
+### Funcionamento
+- As alterações de estado são armazenadas no repositório.
+- Todas as operações passam por validações internas no serviço.
+- O fluxo impede estados inválidos e garante consistência:
+```txt
+draft → criação e edição livre
+published → visível publicamente
+archived → bloqueada para edição e acesso
+```
