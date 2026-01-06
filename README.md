@@ -380,7 +380,7 @@ Erro: "Recipe is archived and cannot be edited"
 
 #### Tentativa de excluir receita publicada
 ```txt
-Erro: "Only draft recipes can be deleted"
+Erro: "Only draft or archived recipes can be deleted"
 ```
 
 #### Tentativa de acessar receita arquivada
@@ -397,3 +397,5 @@ draft → criação e edição livre
 published → visível publicamente
 archived → bloqueada para edição e acesso
 ```
+- Draft e Archived são as únicas que podem ser apagadas.
+- Draft não pode ser arquivada, apenas receitas públicas.
