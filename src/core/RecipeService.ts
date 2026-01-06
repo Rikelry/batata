@@ -29,7 +29,7 @@ export class RecipeService implements IRecipeService {
      * Agora: retorna apenas receitas publicadas
      */
     items = items.filter(r => r.status === "published")
-    
+
     if (categoryId) {
       items = items.filter(r => r.categoryId === categoryId)
     }
@@ -78,10 +78,10 @@ export class RecipeService implements IRecipeService {
 
     const incoming = Array.isArray(input.ingredients)
       ? input.ingredients.map(i => ({
-          name: String(i.name ?? "").trim(),
-          quantity: Number(i.quantity ?? 0),
-          unit: String(i.unit ?? "").trim(),
-        }))
+        name: String(i.name ?? "").trim(),
+        quantity: Number(i.quantity ?? 0),
+        unit: String(i.unit ?? "").trim(),
+      }))
       : []
 
     if (incoming.length === 0) throw new Error("Ingredients are required")
@@ -170,10 +170,10 @@ export class RecipeService implements IRecipeService {
     if (data.ingredients !== undefined) {
       const incoming = Array.isArray(data.ingredients)
         ? data.ingredients.map(i => ({
-            name: String(i.name ?? "").trim(),
-            quantity: Number(i.quantity ?? 0),
-            unit: String(i.unit ?? "").trim(),
-          }))
+          name: String(i.name ?? "").trim(),
+          quantity: Number(i.quantity ?? 0),
+          unit: String(i.unit ?? "").trim(),
+        }))
         : []
 
       incoming.forEach(i => {
@@ -218,17 +218,20 @@ export class RecipeService implements IRecipeService {
    * Recalcula quantidades com base em novas porções
    */
   async scaleRecipe(id: string, newServings: number): Promise<Recipe> {
+    if (!Number.isInteger(newServings)) {
+      throw new Error("The number of people served must be an integer.")
+    }
+
     if (newServings <= 0) {
       throw new Error("Servings must be greater than zero")
     }
 
     const recipe = await this.get(id)
-    const factor = newServings / recipe.servings
+    const factor = Number(newServings / recipe.servings);
 
     const newIngredients = recipe.ingredients.map(ing => ({
-      ingredientId: ing.ingredientId,
-      quantity: ing.quantity * factor,
-      unit: ing.unit,
+      ...ing,
+      quantity: Number((ing.quantity * factor).toFixed(2)),
     }))
 
     return {
